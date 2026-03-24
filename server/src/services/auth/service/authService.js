@@ -134,7 +134,7 @@ export class AuthService {
             const user = await this.userRepository.findByUsername(username);
 
             if (!user) {
-                throw new AppError("Invliad Credentials", 401);
+                throw new AppError("Invalid Credentials", 401);
             };
 
             if (!user.isActive) {

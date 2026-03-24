@@ -26,7 +26,7 @@ export class ClientController {
 
 
     /**
-     * Create a new client, only accessible by super admins
+     * Create a new client, only accessible by super admins :)
      * @param {Request} req - Express request object
      * @param {Response} res - Express response object
      * @param {Function} next - Express next function for error handling

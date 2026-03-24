@@ -137,7 +137,7 @@ export class ClientService {
                 throw new AppError("Client not found", 404)
             };
 
-            // Set permissions based on role
+            // Set permissions based on  role
             let permissions = {
                 canCreateApiKeys: false,
                 canManageUsers: false,
@@ -259,6 +259,30 @@ export class ClientService {
 
         } catch (error) {
             logger.error('Error getting client API keys:', error);
+            throw error;
+        }
+    }
+ async getClientByApiKey(apiKey) {
+        try {
+            const key = await this.apiKeyRepository.findByKeyValue(apiKey);
+
+            if (!key) {
+                return null;
+            }
+
+            if (key.isExpired()) {
+                return null;
+            }
+
+            // Get the populated client from the key
+            const client = key.clientId;
+
+            return {
+                client,
+                apiKey: key,
+            };
+        } catch (error) {
+            logger.error('Error finding client by API key:', error);
             throw error;
         }
     }
